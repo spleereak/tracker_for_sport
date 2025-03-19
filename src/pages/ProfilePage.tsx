@@ -16,6 +16,7 @@ const ProfilePage: React.FC = () => {
   const handleUserDataUpdate = (data: UserData) => {
     setUserData(data);
     localStorage.setItem('userData', JSON.stringify(data));
+    window.location.reload()
   };
 
   return (
