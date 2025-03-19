@@ -1,18 +1,38 @@
 import { UserData } from '@/types/types';
-import React, { useState } from 'react';
+import React from 'react';
 import { Ruler, Weight, Target } from 'lucide-react';
 
 export const InitialForm: React.FC<{ onSubmit: (data: UserData) => void }> = ({ onSubmit }) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = React.useState({
     height: 170,
     weight: 70,
     goal: 'maintain' as UserData['goal']
   });
 
-  const [activeField, setActiveField] = useState<string | null>(null);
+  const [activeField, setActiveField] = React.useState<string | null>(null);
+
+  const [errors, setErrors] = React.useState<{ [key: string]: string }>({});
+
+  const validateForm = () => {
+    const newErrors: { [key: string]: string } = {};
+    if (formData.height === 0) newErrors.height = 'Введите рост';
+    if (formData.weight === 0) newErrors.weight = 'Введите вес';
+    setErrors(newErrors);
+    console.log(newErrors);
+    console.log(Object.keys(newErrors).length === 0);
+    return Object.keys(newErrors).length === 0;
+  }
+
+  React.useEffect(() => {
+    validateForm()
+  }, [formData.height, formData.weight])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const validate = validateForm();
+    if (!validate) {
+      return;
+    }
     onSubmit({
       ...formData,
       achievements: [],
@@ -25,6 +45,8 @@ export const InitialForm: React.FC<{ onSubmit: (data: UserData) => void }> = ({ 
       }
     });
   };
+
+
 
   const goals = [
     { value: 'maintain', label: 'Поддержание формы', description: 'Сохранение текущей формы и улучшение общего тонуса' },
@@ -53,18 +75,19 @@ export const InitialForm: React.FC<{ onSubmit: (data: UserData) => void }> = ({ 
               <div className="relative">
                 <input
                   type="number"
-                  value={formData.height}
+                  value={formData.height || ''}
                   onChange={(e) => setFormData(prev => ({ ...prev, height: Number(e.target.value) }))}
                   onFocus={() => setActiveField('height')}
                   onBlur={() => setActiveField(null)}
-                  className="w-full p-4 pr-12 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-blue-500 
-                           focus:ring-2 focus:ring-blue-200 outline-none transition-all duration-200"
+                  className={`w-full p-4 pr-12 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-blue-500 
+                    focus:ring-2 focus:ring-blue-200 outline-none transition-all duration-200 ${errors.height && 'border-rose-500'}`}
                   min="120"
                   max="220"
                 />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">см</span>
+                <span className={`absolute right-4 top-1/2 -translate-y-1/2 ${errors.height ? 'text-rose-500' : 'text-gray-500'}`}>см</span>
               </div>
             </div>
+            {errors.height && <p className="text-rose-500 text-sm">{errors.height}</p>}
 
             <div className={`transition-all duration-200 ${activeField === 'weight' ? 'scale-[1.02]' : ''}`}>
               <div className="flex items-center gap-3 mb-3">
@@ -74,18 +97,20 @@ export const InitialForm: React.FC<{ onSubmit: (data: UserData) => void }> = ({ 
               <div className="relative">
                 <input
                   type="number"
-                  value={formData.weight}
+                  value={formData.weight || ''}
                   onChange={(e) => setFormData(prev => ({ ...prev, weight: Number(e.target.value) }))}
                   onFocus={() => setActiveField('weight')}
                   onBlur={() => setActiveField(null)}
-                  className="w-full p-4 pr-12 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-green-500 
-                           focus:ring-2 focus:ring-green-200 outline-none transition-all duration-200"
+                  className={`w-full p-4 pr-12 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-green-500 
+                    focus:ring-2 focus:ring-green-200 outline-none transition-all duration-200 ${errors.weight && 'border-rose-500'}`}
                   min="30"
                   max="200"
                 />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">кг</span>
+                <span className={`absolute right-4 top-1/2 -translate-y-1/2 ${errors.weight ? 'text-rose-500' : 'text-gray-500'}`}>кг</span>
               </div>
             </div>
+            {errors.weight && <p className="text-rose-500 text-sm">{errors.weight}</p>}
+
 
             <div>
               <div className="flex items-center gap-3 mb-3">
@@ -98,7 +123,7 @@ export const InitialForm: React.FC<{ onSubmit: (data: UserData) => void }> = ({ 
                     key={goal.value}
                     className={`relative flex items-center p-4 cursor-pointer rounded-xl border-2 transition-all duration-200
                               ${formData.goal === goal.value 
-                                ? 'border-purple-500 bg-purple-50' 
+                                ? 'border-purple-500 bg-purple-500' 
                                 : 'border-gray-200 bg-gray-50 hover:border-gray-300'}`}
                   >
                     <input
@@ -110,18 +135,8 @@ export const InitialForm: React.FC<{ onSubmit: (data: UserData) => void }> = ({ 
                       className="sr-only"
                     />
                     <div>
-                      <div className="font-medium text-gray-900">{goal.label}</div>
-                      <div className="text-sm text-gray-500 mt-1">{goal.description}</div>
-                    </div>
-                    <div 
-                      className={`w-6 h-6 rounded-full border-2 ml-auto flex items-center justify-center transition-all
-                                ${formData.goal === goal.value 
-                                  ? 'border-purple-500 bg-purple-500' 
-                                  : 'border-gray-300 bg-white'}`}
-                    >
-                      {formData.goal === goal.value && (
-                        <div className="w-2 h-2 bg-white rounded-full" />
-                      )}
+                      <div className={`${formData.goal === goal.value ? 'text-white' : 'text-gray-900'} font-medium`}>{goal.label}</div>
+                      <div className={`${formData.goal === goal.value ? 'text-white' : 'text-gray-500'} text - sm text-gray-500 mt-1`}>{goal.description}</div>
                     </div>
                   </label>
                 ))}
