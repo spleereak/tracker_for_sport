@@ -1,19 +1,20 @@
 import { UserData } from "@/types/types";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, FC } from "react";
 import { AchievementsModal } from "./AchievementsModal";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { useAchievements } from "@/hooks/useAchievements";
-import { Trophy, Ruler, Weight, Target, Award, Dumbbell } from 'lucide-react';
+import { Trophy, Ruler, Weight, Target, Dumbbell } from 'lucide-react';
 import {ProportionsModal} from "./ProportionsModal.tsx";
 
-export const Dashboard: React.FC<{
+export const Dashboard: FC<{
   userData: UserData;
   onUpdateUser: (data: UserData) => void;
 }> = ({ userData, onUpdateUser }) => {
   const [showAchievements, setShowAchievements] = useState(false);
   const [showWeightModal, setShowWeightModal] = useState(false);
   const [showHeightModal, setShowHeightModal] = useState(false);
+  const [localUserData, setLocalUserData] = useState(userData);
   const hasUpdated = useRef(false);
 
   const workouts = useSelector((state: RootState) => state.workouts.workouts);
@@ -23,16 +24,20 @@ export const Dashboard: React.FC<{
     newAchievements, 
     clearNewAchievements, 
     calculateTotalReward 
-  } = useAchievements(userData);
+  } = useAchievements(localUserData);
+
+  useEffect(() => {
+    setLocalUserData(userData);
+  }, [userData])
 
   useEffect(() => {
     if (newAchievements.length > 0 && !hasUpdated.current) {
       hasUpdated.current = true;
 
       onUpdateUser({
-        ...userData,
-        achievements: [...userData.achievements, ...newAchievements],
-        points: userData.points + calculateTotalReward()
+        ...localUserData,
+        achievements: [...localUserData.achievements, ...newAchievements],
+        points: localUserData.points + calculateTotalReward()
       });
 
       clearNewAchievements();
@@ -41,14 +46,14 @@ export const Dashboard: React.FC<{
 
   const goal = {
     label: 'Цель',
-    value: userData.goal === 'gain' ?
+    value: localUserData.goal === 'gain' ?
       'Набор массы'
-      : userData.goal === 'lose' ?
+      : localUserData.goal === 'lose' ?
         'Снижение веса'
         : 'Поддержание формы',
-    color: userData.goal === 'gain' ?
+    color: localUserData.goal === 'gain' ?
       'from-blue-500 to-blue-600'
-      : userData.goal === 'lose' ?
+      : localUserData.goal === 'lose' ?
         'from-green-500 to-green-600'
         : 'from-purple-500 to-purple-600'
   };
@@ -56,14 +61,14 @@ export const Dashboard: React.FC<{
   const stats = [
     { 
       label: 'Рост', 
-      value: `${userData.height} см`,
+      value: `${localUserData.height} см`,
       icon: Ruler,
       color: 'bg-blue-50',
       iconColor: 'text-blue-600' 
     },
     { 
       label: 'Вес', 
-      value: `${userData.weight} кг`,
+      value: `${localUserData.weight} кг`,
       icon: Weight,
       color: 'bg-green-50',
       iconColor: 'text-green-600'
@@ -77,7 +82,7 @@ export const Dashboard: React.FC<{
     },
     { 
       label: 'Тренировок', 
-      value: `${userData.workoutsCompleted}/${workouts.length}`,
+      value: `${localUserData.workoutsCompleted}/${workouts.length}`,
       icon: Dumbbell,
       color: 'bg-red-50',
       iconColor: 'text-red-600'
@@ -85,8 +90,13 @@ export const Dashboard: React.FC<{
   ];
 
   const calculateProgress = () => {
-    return (userData.workoutsCompleted / workouts.length) * 100;
+    return (localUserData.workoutsCompleted / workouts.length) * 100;
   };
+
+  const handleUpdateUserData = (data: UserData) => {
+    setLocalUserData(data);
+    onUpdateUser(data);
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4">
@@ -153,9 +163,9 @@ export const Dashboard: React.FC<{
             onClose={() => setShowAchievements(false)}
           />
         ) : showWeightModal ? (
-          <ProportionsModal icon={stats[1].icon} onClose={() => setShowWeightModal(false)} weight={userData.weight} />
+          <ProportionsModal icon={stats[1].icon} onClose={() => setShowWeightModal(false)} weight={localUserData.weight} onSave={handleUpdateUserData} userData={localUserData} />
         ) : showHeightModal && (
-          <ProportionsModal icon={stats[0].icon} onClose={() => setShowHeightModal(false)} height={userData.height} />
+          <ProportionsModal icon={stats[0].icon} onClose={() => setShowHeightModal(false)} height={localUserData.height} onSave={handleUpdateUserData} userData={localUserData} />
         )}
       </div>
     </div>

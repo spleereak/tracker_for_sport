@@ -16,8 +16,13 @@ const ProfilePage: React.FC = () => {
   const handleUserDataUpdate = (data: UserData) => {
     setUserData(data);
     localStorage.setItem('userData', JSON.stringify(data));
-    window.location.reload()
   };
+
+  const handleSubmitUserData = (data: UserData) => {
+    setUserData(data);
+    localStorage.setItem('userData', JSON.stringify(data));
+    window.location.reload()
+  }
 
   return (
     <>
@@ -25,7 +30,7 @@ const ProfilePage: React.FC = () => {
         userData ? (
           <Dashboard userData={userData} onUpdateUser={handleUserDataUpdate} /> 
         ): (
-          <InitialForm onSubmit={handleUserDataUpdate} />
+          <InitialForm onSubmit={handleSubmitUserData} />
         )
       }
     </>

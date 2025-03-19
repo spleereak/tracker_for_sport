@@ -1,12 +1,15 @@
 import { X, Minus, Plus } from "lucide-react";
 import React from "react";
+import {UserData} from "../types/types.ts";
 
 export const ProportionsModal: React.FC<{
   icon: any;
   weight?: number;
   height?: number;
   onClose: () => void;
-}> = ({ icon: Icon, weight, height, onClose }) => {
+  onSave: (data: UserData) => void;
+  userData: UserData;
+}> = ({ icon: Icon, weight, height, onClose, onSave, userData }) => {
   const isWeight = weight !== undefined;
   const initialValue = isWeight ? weight : height || 0;
   const [value, setValue] = React.useState(initialValue);
@@ -49,13 +52,19 @@ export const ProportionsModal: React.FC<{
   // Handle save
   const handleSave = () => {
     const userDataFromLS = localStorage.getItem('userData');
-    let userData = JSON.parse(userDataFromLS!);
+    let storedUserData = JSON.parse(userDataFromLS!);
     if (isWeight) {
-      userData.weight = value;
+      storedUserData.weight = value;
     } else {
-      userData.height = value;
+      storedUserData.height = value;
     }
     localStorage.setItem('userData', JSON.stringify(userData));
+    const updatedUserData = {
+      ...userData,
+      weight: isWeight ? value : userData.weight,
+      height: !isWeight ? value : userData.height
+    }
+    onSave(updatedUserData);
 
     onClose();
   };
