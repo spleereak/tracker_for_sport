@@ -5,12 +5,15 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { useAchievements } from "@/hooks/useAchievements";
 import { Trophy, Ruler, Weight, Target, Award, Dumbbell } from 'lucide-react';
+import {ProportionsModal} from "./ProportionsModal.tsx";
 
 export const Dashboard: React.FC<{
   userData: UserData;
   onUpdateUser: (data: UserData) => void;
 }> = ({ userData, onUpdateUser }) => {
   const [showAchievements, setShowAchievements] = useState(false);
+  const [showWeightModal, setShowWeightModal] = useState(false);
+  const [showHeightModal, setShowHeightModal] = useState(false);
   const hasUpdated = useRef(false);
 
   const workouts = useSelector((state: RootState) => state.workouts.workouts);
@@ -73,13 +76,6 @@ export const Dashboard: React.FC<{
       iconColor: 'text-yellow-600'
     },
     { 
-      label: 'Баллы', 
-      value: userData.points,
-      icon: Award,
-      color: 'bg-purple-50',
-      iconColor: 'text-purple-600'
-    },
-    { 
       label: 'Тренировок', 
       value: `${userData.workoutsCompleted}/${workouts.length}`,
       icon: Dumbbell,
@@ -132,7 +128,12 @@ export const Dashboard: React.FC<{
               key={index}
               className={`${stat.color} rounded-2xl shadow-lg overflow-hidden transition-transform 
                          hover:scale-105 cursor-pointer`}
-              onClick={() => stat.label === "Достижения" && setShowAchievements(true)}
+              onClick={
+              () => {
+                stat.label === "Достижения" ? setShowAchievements(true) :
+                  stat.label === 'Вес' ? setShowWeightModal(true) :
+                    stat.label === 'Рост' && setShowHeightModal(true)
+              }}
             >
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
@@ -146,11 +147,15 @@ export const Dashboard: React.FC<{
           ))}
         </div>
 
-        {showAchievements && (
+        {showAchievements ? (
           <AchievementsModal
             achievements={achievements}
             onClose={() => setShowAchievements(false)}
           />
+        ) : showWeightModal ? (
+          <ProportionsModal icon={stats[1].icon} onClose={() => setShowWeightModal(false)} weight={userData.weight} />
+        ) : showHeightModal && (
+          <ProportionsModal icon={stats[0].icon} onClose={() => setShowHeightModal(false)} height={userData.height} />
         )}
       </div>
     </div>

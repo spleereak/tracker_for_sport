@@ -100,5 +100,3 @@ export const AchievementsModal: React.FC<{
     </div>
   );
 };
-
-export default AchievementsModal;
