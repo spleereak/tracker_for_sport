@@ -62,7 +62,7 @@ export const Header: React.FC = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`p-4 hover:bg-gray-50 transition-colors ${
                   location.pathname === path
-                  ? 'font-bold text-green-500 bg-green-50'
+                  ? 'font-bold text-purple-500 bg-purple-50'
                   : 'text-gray-600'
                 }`}
               >
