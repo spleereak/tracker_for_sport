@@ -77,39 +77,36 @@ function WorkoutCatalog() {
                     {workouts.length} тренировок
                   </p>
                 </div>
-                <LinkButton 
-                  path='/constructor'
-                  className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 
-                  hover:to-blue-700 text-white px-4 py-2 rounded-xl transition-colors"
-                />
               </div>
             </div>
           </div>
-
-          <div className="bg-white rounded-2xl shadow-xl p-6 mb-8">
-            <div className="flex items-center gap-4 mb-4">
-              <button
-                onClick={() => setIsFiltersOpen(!isFiltersOpen)}
-                className="flex items-center gap-2 px-4 py-2 bg-gray-50 hover:bg-gray-100 
-                          rounded-xl transition-colors"
-              >
-                <Filter size={20} className="text-gray-500" />
-                <span className="text-gray-700">Фильтры</span>
-                <ChevronDown 
-                  size={16} 
-                  className={`text-gray-500 transform transition-transform ${isFiltersOpen ? 'rotate-180' : ''}`} 
-                />
-              </button>
-            </div>
-
-            {isFiltersOpen && (
-              <Filters
-                isOpen={isFiltersOpen}
-                filters={filters}
-                onFilterChange={setFilters}
+          <div className="flex items-center gap-4 mb-4">
+            <button
+              onClick={() => setIsFiltersOpen(!isFiltersOpen)}
+              className="bg-white flex items-center gap-2 px-4 py-2 bg-gray-50 hover:bg-gray-100
+                        rounded-xl transition-colors"
+            >
+              <Filter size={20} className="text-gray-500" />
+              <span className="text-gray-700">Фильтры</span>
+              <ChevronDown
+                size={16}
+                className={`text-gray-500 transform transition-transform ${isFiltersOpen ? 'rotate-180' : ''}`}
               />
-            )}
+            </button>
+            <LinkButton
+                path='/constructor'
+                className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600
+                hover:to-blue-700 text-white px-4 py-2 rounded-xl transition-colors"
+            />
           </div>
+
+          {isFiltersOpen && (
+            <Filters
+              isOpen={isFiltersOpen}
+              filters={filters}
+              onFilterChange={setFilters}
+            />
+          )}
         
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredWorkouts.map((workout, i) => (
