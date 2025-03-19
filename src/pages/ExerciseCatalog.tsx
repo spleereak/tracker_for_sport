@@ -171,41 +171,39 @@ function ExerciseCatalog() {
                   {filteredExercises.length} упражнений
                 </p>
               </div>
-              <button
-                className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 
-                text-white px-4 py-2 rounded-xl flex items-center gap-2 transition-colors cursor-pointer"
-                onClick={() => setIsModalOpen(true)}
-              >
-                <Plus size={20} /> Добавить
-              </button>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl p-6 mb-8">
-          <div className="flex items-center gap-4 mb-4">
-            <button
-              onClick={() => setIsFiltersOpen(!isFiltersOpen)}
-              className="flex items-center gap-2 px-4 py-2 bg-gray-50 hover:bg-gray-100 
-              rounded-xl transition-colors cursor-pointer"
-            >
-              <Filter size={20} className="text-gray-500" />
-              <span className="text-gray-700">Фильтры</span>
-              <ChevronDown 
-                size={16} 
-                className={`text-gray-500 transform transition-transform ${isFiltersOpen ? 'rotate-180' : ''}`} 
-              />
-            </button>
-          </div>
-
-          {isFiltersOpen && (
-            <Filters
-              isOpen={isFiltersOpen}
-              filters={filters}
-              onFilterChange={setFilters}
+        <div className="flex items-center gap-4 mb-4">
+          <button
+            onClick={() => setIsFiltersOpen(!isFiltersOpen)}
+            className="flex bg-white items-center gap-2 px-4 py-2 bg-gray-50 hover:bg-gray-100
+            rounded-xl transition-colors cursor-pointer"
+          >
+            <Filter size={20} className="text-gray-500" />
+            <span className="text-gray-700">Фильтры</span>
+            <ChevronDown
+              size={16}
+              className={`text-gray-500 transform transition-transform ${isFiltersOpen ? 'rotate-180' : ''}`}
             />
-          )}
+          </button>
+          <button
+              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700
+                text-white px-4 py-2 rounded-xl flex items-center gap-2 transition-colors cursor-pointer"
+              onClick={() => setIsModalOpen(true)}
+          >
+            <Plus size={20} /> Добавить
+          </button>
         </div>
+
+        {isFiltersOpen && (
+          <Filters
+            isOpen={isFiltersOpen}
+            filters={filters}
+            onFilterChange={setFilters}
+          />
+        )}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredExercises.map((exercise, i) => (
