@@ -40,7 +40,6 @@ export const ExerciseFullModal: React.FC<Props> = ({
         <div className="relative w-full max-w-3xl mx-4 my-8 bg-white rounded-2xl shadow-xl flex flex-col max-h-[90vh]">
           <div className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 flex-shrink-0" />
 
-          {/* Заголовок - фиксированный */}
           <div className="p-4 sm:p-6 border-b border-gray-200 flex-shrink-0">
             <div className="flex justify-between items-start">
               <div>
@@ -71,8 +70,6 @@ export const ExerciseFullModal: React.FC<Props> = ({
               </div>
             </div>
           </div>
-
-          {/* Содержимое с прокруткой */}
           <div className="overflow-y-auto flex-grow">
             <div className="relative h-48 sm:h-64 lg:h-96 w-full">
               <img
@@ -103,17 +100,6 @@ export const ExerciseFullModal: React.FC<Props> = ({
                       <div>
                         <p className="text-xs sm:text-sm text-gray-600">Длительность</p>
                         <p className="font-semibold">{exercise.duration} мин.</p>
-                      </div>
-                    </div>
-                )}
-                {exercise.weight && (
-                    <div className="flex items-center gap-2">
-                      <div className="p-2 bg-gray-100 rounded-full">
-                        <Weight className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
-                      </div>
-                      <div>
-                        <p className="text-xs sm:text-sm text-gray-600">Вес</p>
-                        <p className="font-semibold">{exercise.weight} кг</p>
                       </div>
                     </div>
                 )}
