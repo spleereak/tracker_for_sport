@@ -10,6 +10,7 @@ export interface Exercise {
   countType: 'Время' | 'Повторения';
   reps?: number;
   duration?: number;
+  fromUser: boolean;
 }
 
 export interface ExerciseState {

@@ -12,7 +12,8 @@ const initialExercises: Exercise[] = [
     equipment: [],
     tags: ["Ноги", "Корпус"],
     countType: "Время",
-    duration: 1
+    duration: 1,
+    fromUser: false
   },
   {
     id: 2,
@@ -25,6 +26,7 @@ const initialExercises: Exercise[] = [
     tags: ["Ноги", "Кардио"],
     countType: "Время",
     duration: 1,
+    fromUser: false
   },
   {
     id: 3,
@@ -37,6 +39,7 @@ const initialExercises: Exercise[] = [
     tags: ["Ноги"],
     countType: "Повторения",
     reps: 15,
+    fromUser: false
   },
   {
     id: 4,
@@ -49,30 +52,33 @@ const initialExercises: Exercise[] = [
     tags: ["Корпус", "Спина"],
     countType: "Повторения",
     reps: 10,
+    fromUser: false
   },
   {
     id: 5,
     name: "Статическое сжимание ладоней",
     description: "Укрепляет мышцы груди и рук без дополнительного оборудования.",
-    instruction: "1. Соедини ладони перед грудью, пальцы направь вверх. 2. Сильно надави ладонями друг на друга. 3. Удерживай напряжение 5–10 секунд, затем расслабь.",
+    instruction: "1. Соедини ладони перед грудью, пальцы направь вверх. \n2. Сильно надави ладонями друг на друга. \n3. Удерживай напряжение 5–10 секунд, затем расслабь.",
     image: "palms_press.jpg",
     difficulty: "Начинающий",
     equipment: [],
     tags: ["Грудь", "Руки"],
     countType: "Повторения",
     reps: 10,
+    fromUser: false
   },
   {
     id: 6,
     name: "Классические приседания",
     description: "Базовое упражнение для ног и ягодиц",
-    instruction: "1. Встань прямо, ноги на ширине плеч. 2. Медленно опусти таз вниз, пока бедра не станут параллельны полу. 3. Следи, чтобы колени не выходили за носки. 4. Вернись в исходное положение.",
+    instruction: "1. Встань прямо, ноги на ширине плеч. \n2. Медленно опусти таз вниз, пока бедра не станут параллельны полу. \n3. Следи, чтобы колени не выходили за носки. 4. Вернись в исходное положение.",
     image: "calf_raise.jpg",
     difficulty: "Начинающий",
     equipment: [],
     tags: ["Ноги"],
     countType: "Повторения",
     reps: 15,
+    fromUser: false
   },
   {
     id: 7,
@@ -85,18 +91,20 @@ const initialExercises: Exercise[] = [
     tags: ["Грудь", "Руки"],
     countType: "Повторения",
     reps: 15,
+    fromUser: false
   },
   {
     id: 8,
     name: "Планка",
     description: "Отличное упражнение для всего корпуса.",
-    instruction: "1. Прими упор лёжа на предплечья. 2. Держи тело ровным, не прогибай поясницу. 3. Удерживай позицию заданное время.",
+    instruction: "1. Прими упор лёжа на предплечья. \n2. Держи тело ровным, не прогибай поясницу. \n3. Удерживай позицию заданное время.",
     image: "plank.jpg",
     difficulty: "Средний",
     equipment: [],
     tags: ["Корпус", "Спина"],
     countType: "Время",
     duration: 1,
+    fromUser: false
   },
   {
     id: 9,
@@ -109,6 +117,7 @@ const initialExercises: Exercise[] = [
     tags: ["Ноги"],
     countType: "Повторения",
     reps: 15,
+    fromUser: false
   },
   {
     id: 10,
@@ -120,7 +129,8 @@ const initialExercises: Exercise[] = [
     equipment: ["Гантели"],
     tags: ["Спина", "Корпус"],
     countType: "Повторения",
-    reps: 10
+    reps: 10,
+    fromUser: false
   },
   {
     id: 11,
@@ -132,7 +142,8 @@ const initialExercises: Exercise[] = [
     equipment: ["Коврик"],
     tags: ["Ноги", "Кардио"],
     countType: "Повторения",
-    duration: 10
+    duration: 10,
+    fromUser: false
   },
   {
     id: 12,
@@ -144,7 +155,8 @@ const initialExercises: Exercise[] = [
     equipment: ["Турник"],
     tags: ["Грудь", "Руки"],
     countType: "Повторения",
-    reps: 10
+    reps: 10,
+    fromUser: false
   },
   {
     id: 13,
@@ -156,7 +168,8 @@ const initialExercises: Exercise[] = [
     equipment: ["Ничего"],
     tags: ["Корпус", "Спина"],
     countType: "Повторения",
-    reps: 20
+    reps: 20,
+    fromUser: false
   },
   {
     id: 14,
@@ -168,7 +181,8 @@ const initialExercises: Exercise[] = [
     equipment: ["Ничего"],
     tags: ["Ноги", "Кардио"],
     countType: "Время",
-    duration: 1
+    duration: 1,
+    fromUser: false
   },
   {
     id: 15,
@@ -180,7 +194,8 @@ const initialExercises: Exercise[] = [
     equipment: ["Гантели"],
     tags: ["Ноги", "Руки", "Грудь", "Корпус", "Кардио"],
     countType: "Повторения",
-    reps: 12
+    reps: 12,
+    fromUser: false
   }
 ];
 
