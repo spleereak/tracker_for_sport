@@ -49,18 +49,22 @@ export const ExerciseFullModal: React.FC<Props> = ({
               </span>
               </div>
               <div className="flex items-center gap-2">
-                <button
-                    className='rounded-full p-1 hover:bg-gray-100 transition-colors'
-                    onClick={(e) => handleUpdate(e, exercise)}
-                >
-                  <Edit2 className="w-5 h-5 sm:w-6 sm:h-6 text-gray-500 cursor-pointer" />
-                </button>
-                <button
-                    className='rounded-full p-1 hover:bg-gray-100 transition-colors'
-                    onClick={(e) => handleDelete(e, exercise.id)}
-                >
-                  <Trash2 className="w-5 h-5 sm:w-6 sm:h-6 text-gray-500 cursor-pointer" />
-                </button>
+                {exercise.fromUser && (
+                  <>
+                    <button
+                      className='rounded-full p-1 hover:bg-gray-100 transition-colors'
+                      onClick={(e) => handleUpdate(e, exercise)}
+                    >
+                      <Edit2 className="w-5 h-5 sm:w-6 sm:h-6 text-gray-500 cursor-pointer" />
+                    </button>
+                    <button
+                      className='rounded-full p-1 hover:bg-gray-100 transition-colors'
+                      onClick={(e) => handleDelete(e, exercise.id)}
+                    >
+                      <Trash2 className="w-5 h-5 sm:w-6 sm:h-6 text-gray-500 cursor-pointer" />
+                    </button>
+                  </>
+                )}
                 <button
                     onClick={() => setExerciseModalOpen(false)}
                     className="rounded-full p-1 hover:bg-gray-100 transition-colors"
