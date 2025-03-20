@@ -297,13 +297,6 @@ export const WorkoutMode = () => {
                 <h2 className="text-2xl font-bold mb-4">{currentExercise?.name}</h2>
                 <p className="text-gray-600 mb-6">{currentExercise?.instruction}</p>
 
-                {currentExercise?.hasWeight && (
-                  <div className="mb-6 p-4 bg-gray-50 rounded-xl">
-                    <div className="text-sm text-gray-500">Рекомендуемый вес</div>
-                    <div className="text-xl font-bold mt-1">{currentExercise.weight} кг</div>
-                  </div>
-                )}
-
                 {currentExercise?.countType === 'Время' ? (
                   <div className="text-center mb-6">
                     <div className="text-6xl font-bold text-gray-900 mb-4">
