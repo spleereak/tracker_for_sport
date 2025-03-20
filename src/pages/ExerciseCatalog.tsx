@@ -219,25 +219,26 @@ function ExerciseCatalog() {
                   alt={exercise.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent 
-                                opacity-0 group-hover:opacity-100 transition-opacity">
-                  <div className="absolute bottom-4 right-4 flex gap-2">
-                    <button
-                      className="p-2 rounded-xl bg-white/20 hover:bg-white/30 text-white 
+                {exercise.fromUser && (
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="absolute bottom-4 right-4 flex gap-2">
+                      <button
+                        className="p-2 rounded-xl bg-white/20 hover:bg-white/30 text-white
                                  transition-colors"
-                      onClick={(e) => handleClickUpdateExercise(e, exercise)}
-                    >
-                      <Edit2 size={16} />
-                    </button>
-                    <button
-                      className="p-2 rounded-xl bg-white/20 hover:bg-white/30 text-white 
+                        onClick={(e) => handleClickUpdateExercise(e, exercise)}
+                      >
+                        <Edit2 size={16} />
+                      </button>
+                      <button
+                        className="p-2 rounded-xl bg-white/20 hover:bg-white/30 text-white
                                  transition-colors"
-                      onClick={(e) => handleDeleteExercise(e, exercise.id)}
-                    >
-                      <Trash2 size={16} />
-                    </button>
+                        onClick={(e) => handleDeleteExercise(e, exercise.id)}
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
               
               <div className="p-6">
