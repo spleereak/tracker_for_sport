@@ -118,14 +118,16 @@ function WorkoutCatalog() {
                 <div className="mt-auto p-4 flex flex-col flex-grow">
                   <div className='flex items-center justify-between'>
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">{workout.name}</h3>
-                    <div className='flex gap-2'>
-                      <button
-                        className='rounded-full p-1.5 hover:bg-gray-100 transition-colors'
-                        onClick={(e) => handleDeleteWorkout(e, workout.id)}
-                      >
-                        <Trash2 size={20} className="text-gray-500 cursor-pointer" />
-                      </button>
-                    </div>
+                    {workout.fromUser && (
+                      <div className='flex gap-2'>
+                        <button
+                          className='rounded-full p-1.5 hover:bg-gray-100 transition-colors'
+                          onClick={(e) => handleDeleteWorkout(e, workout.id)}
+                        >
+                          <Trash2 size={20} className="text-gray-500 cursor-pointer" />
+                        </button>
+                      </div>
+                    )}
                   </div>
                   <p className="text-sm text-gray-600 mb-4 line-clamp-2">{workout.description}</p>
                   <div className="flex flex-wrap gap-2 mb-4">

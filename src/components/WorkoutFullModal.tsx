@@ -61,12 +61,14 @@ export const WorkoutFullModal: React.FC<Props> = ({
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <button
-                className="rounded-full p-1 hover:bg-gray-100 transition-colors"
-                onClick={(e) => handleDelete(e, workout.id)}
-              >
-                <Trash2 className="w-6 h-6 text-gray-500 cursor-pointer" />
-              </button>
+              {workout.fromUser && (
+                <button
+                  className="rounded-full p-1 hover:bg-gray-100 transition-colors"
+                  onClick={(e) => handleDelete(e, workout.id)}
+                >
+                  <Trash2 className="w-6 h-6 text-gray-500 cursor-pointer" />
+                </button>
+              )}
               <button 
                 onClick={() => setWorkoutModalOpen(false)}
                 className="rounded-full p-1 hover:bg-gray-100 transition-colors"
