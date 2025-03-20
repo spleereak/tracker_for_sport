@@ -102,7 +102,7 @@ const initialWorkouts: Workout[] = [
         instruction: "1. Встань прямо, руки положи на талию. \n2. Медленно наклоняйся в сторону, не двигая бёдрами.\n3. Вернись в исходное положение, наклонись в другую сторону.",
         image: "./images/lunges.jpg",
         difficulty: "Средний",
-        equipment: ["Гантели"],
+        equipment: [],
         tags: ["Спина", "Корпус"],
         countType: "Повторения",
         reps: 10,
