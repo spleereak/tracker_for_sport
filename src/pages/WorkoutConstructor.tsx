@@ -5,15 +5,14 @@ import { Workout } from '../store/workout/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { useSaveWorkout } from '../hooks/useSaveWorkout';
-import { Clock, Repeat, Weight, Tag, ChevronRight, Dumbbell, Wand2, AlertTriangle } from 'lucide-react';
+import { Clock, Repeat, Tag, ChevronRight, Dumbbell, Wand2, AlertTriangle } from 'lucide-react';
 import { Exercise } from '@/store/exercise/types';
-import { DIFFICULTY_COLORS, MAX_DURATION, MAX_REPS, MAX_WEIGHT_MULTIPLIER, TAGS_LIST } from '@/constants/workoutConstructorConstants';
+import { DIFFICULTY_COLORS, MAX_DURATION, MAX_REPS, TAGS_LIST } from '@/constants/workoutConstructorConstants';
 
 interface ExerciseSettings {
   type: string;
   duration?: number;
   reps?: number;
-  weight?: number;
   warning?: string;
 }
 
@@ -73,9 +72,6 @@ const WorkoutConstructor = () => {
     } else if (type === 'Повторения') {
       value = Math.min(15, exercise.reps || 12);
       return { type: 'Повторения', reps: value };
-    } else if (exercise.hasWeight) {
-      value = exercise.weight || 10;
-      return { type: 'Вес', weight: value };
     }
 
     return { type: 'Повторения', reps: 12 };
@@ -91,8 +87,6 @@ const WorkoutConstructor = () => {
       warning = `Слишком много повторений! Рекомендуется не более ${MAX_REPS}`;
     } else if (type === 'Время' && value > MAX_DURATION) {
       warning = `Слишком большая длительность! Рекомендуется не более ${MAX_DURATION} минут`;
-    } else if (type === 'Вес' && exercise.weight && value > exercise.weight * MAX_WEIGHT_MULTIPLIER) {
-      warning = `Слишком большой вес! Рекомендуется не более ${exercise.weight * MAX_WEIGHT_MULTIPLIER} кг`;
     }
 
     return warning;
@@ -261,7 +255,7 @@ const WorkoutConstructor = () => {
                             checked={newWorkout.exercises.some(e => e.id === exercise.id)}
                             onChange={(e) => {
                               const updatedExercises = e.target.checked
-                                  ? [...newWorkout.exercises, { ...exercise, duration: exercise.duration, reps: exercise.reps, weight: exercise.weight }]
+                                  ? [...newWorkout.exercises, { ...exercise, duration: exercise.duration, reps: exercise.reps }]
                                   : newWorkout.exercises.filter(ex => ex.id !== exercise.id);
                               setNewWorkout({ ...newWorkout, exercises: updatedExercises });
                             }}
@@ -307,26 +301,6 @@ const WorkoutConstructor = () => {
                                   className="w-16 sm:w-20 px-2 sm:px-3 py-1 sm:py-2 rounded-lg sm:rounded-xl bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
                               />
                               <span className="text-xs sm:text-sm text-gray-500">повт</span>
-                            </div>
-                        )}
-
-                        {exercise.hasWeight && (
-                            <div className="flex items-center gap-1 sm:gap-2">
-                              <Weight className="w-3 h-3 sm:w-4 sm:h-4" />
-                              <input
-                                  type="number"
-                                  value={exercise.hasWeight ? exerciseSettings[exercise.id]?.weight : ''}
-                                  onChange={(e) => {
-                                    const value = parseInt(e.target.value) || 0;
-                                    const warning = checkExerciseLoad(exercise.id, 'Вес', value);
-                                    setExerciseSettings(prev => ({
-                                      ...prev,
-                                      [exercise.id]: { type: 'Вес', weight:value, warning }
-                                    }));
-                                  }}
-                                  className="w-16 sm:w-20 px-2 sm:px-3 py-1 sm:py-2 rounded-lg sm:rounded-xl bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm"
-                              />
-                              <span className="text-xs sm:text-sm text-gray-500">кг</span>
                             </div>
                         )}
                       </div>
