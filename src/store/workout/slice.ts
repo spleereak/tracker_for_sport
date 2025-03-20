@@ -49,7 +49,8 @@ const initialWorkouts: Workout[] = [
     ],
     difficulty: "Начинающий",
     equipmentRequired: [],
-    tags: ["Спина", "Ноги", "Корпус", "Грудь", "Руки"]
+    tags: ["Спина", "Ноги", "Корпус", "Грудь", "Руки"],
+    fromUser: false
   },
   {
     id: 2,
@@ -111,7 +112,8 @@ const initialWorkouts: Workout[] = [
     ],
     difficulty: "Средний",
     equipmentRequired: [],
-    tags: ["Грудь", "Корпус", "Ноги", "Руки", "Спина"]
+    tags: ["Грудь", "Корпус", "Ноги", "Руки", "Спина"],
+    fromUser: false
   },
   {
     id: 3,
@@ -173,7 +175,8 @@ const initialWorkouts: Workout[] = [
     ],
     difficulty: "Сложный",
     equipmentRequired: [],
-    tags: ["Грудь", "Спина", "Ноги", "Руки", "Корпус", "Кардио"]
+    tags: ["Грудь", "Спина", "Ноги", "Руки", "Корпус", "Кардио"],
+    fromUser: false
   }
 ];
 

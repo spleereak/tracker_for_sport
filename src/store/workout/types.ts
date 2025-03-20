@@ -8,6 +8,7 @@ export interface Workout {
   difficulty: "Начинающий" | "Средний" | "Сложный";
   equipmentRequired: string[];
   tags: string[];
+  fromUser: boolean;
 }
 
 export interface WorkoutState {
