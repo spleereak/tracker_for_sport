@@ -14,16 +14,13 @@ export const ProportionsModal: React.FC<{
   const initialValue = isWeight ? weight : height || 0;
   const [value, setValue] = React.useState(initialValue);
 
-  // Set step and units based on whether we're editing weight or height
   const step = isWeight ? 0.1 : 1;
   const units = isWeight ? "кг" : "см";
-  const minValue = isWeight ? 10 : 50;
-  const maxValue = isWeight ? 300 : 250;
+  const minValue = isWeight ? 20 : 100;
+  const maxValue = isWeight ? 200 : 250;
 
-  // Format the value for display
   const displayValue = isWeight ? value.toFixed(1) : Math.floor(value);
 
-  // Handle increment and decrement
   const increment = () => {
     if (value < maxValue) {
       setValue(prev => parseFloat((prev + step).toFixed(1)));
@@ -36,7 +33,6 @@ export const ProportionsModal: React.FC<{
     }
   };
 
-  // Handle direct input
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = parseFloat(e.target.value);
     if (!isNaN(newValue) && newValue >= minValue && newValue <= maxValue) {
@@ -44,12 +40,9 @@ export const ProportionsModal: React.FC<{
     }
   };
 
-  // Handle slider change
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(parseFloat(e.target.value));
   };
-
-  // Handle save
   const handleSave = () => {
     const userDataFromLS = localStorage.getItem('userData');
     let storedUserData = JSON.parse(userDataFromLS!);
