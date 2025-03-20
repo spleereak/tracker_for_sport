@@ -25,12 +25,6 @@ export const ExerciseFormModal: React.FC<ExerciseFormModalProps> = ({
 }) => {
   if (!isOpen) return null;
 
-  React.useEffect(() => {
-    if (exercise.weight && !exercise.hasWeight) {
-      onExerciseChange({ ...exercise, hasWeight: true })
-    }
-  }, [exercise.weight, exercise.hasWeight]);
-
   const handleSaveOrUpdate = () => {
     if (mode === 'edit' && onUpdate) {
       onUpdate(exercise);
@@ -142,7 +136,7 @@ export const ExerciseFormModal: React.FC<ExerciseFormModalProps> = ({
           <div className="space-y-3">
             <label className="block text-sm font-medium text-gray-700">Оборудование</label>
             <div className="grid grid-cols-2 gap-3">
-              {['Штанга', 'Гантели', 'Скакалка', 'Коврик', 'Скамья'].map((item, i) => (
+              {['Турник', 'Скакалка', 'Коврик', 'Скамья'].map((item, i) => (
                 <label
                   key={i}
                   className={`px-4 py-2 rounded-xl border cursor-pointer transition-all flex items-center gap-2 ${
@@ -203,7 +197,8 @@ export const ExerciseFormModal: React.FC<ExerciseFormModalProps> = ({
                 type='number'
                 placeholder={exercise.countType === 'Время' as Exercise['countType'] ? 'Мин' : 'Кол-во'}
                 className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:ring-blue-200 focus:border-blue-500 focus:ring-2 outline-none transition-all"
-                value={exercise.countType === 'Время' ? exercise.duration : exercise.reps ?? ''}
+                value={exercise.countType === 'Время' ? exercise.duration! > 0 ? exercise.duration : '' : exercise.reps! > 0 ? exercise.reps : ''}
+                defaultValue=''
                 onChange={(e) => onExerciseChange({
                   ...exercise,
                   duration: exercise.countType === 'Время' ? Number(e.target.value) : exercise.duration,
@@ -216,34 +211,6 @@ export const ExerciseFormModal: React.FC<ExerciseFormModalProps> = ({
               {exercise.countType === 'Повторения' && errors.reps && (
                 <p className="text-rose-500 text-sm">{errors.reps}</p>
               )}
-            </div>
-          )}
-
-          <div className="space-y-3">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={exercise.hasWeight}
-                onChange={(e) => onExerciseChange({ ...exercise, hasWeight: e.target.checked })}
-                className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-              />
-              <span className="text-sm font-medium text-gray-700">
-                Это упражнение с определённым весом?
-              </span>
-            </label>
-          </div>
-
-          {exercise.hasWeight && (
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700">Вес</label>
-              <input
-                type="number"
-                placeholder="кг"
-                className="w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:ring-blue-200 focus:border-blue-500 focus:ring-2 outline-none transition-all"
-                value={exercise.weight || ''}
-                onChange={(e) => onExerciseChange({ ...exercise, weight: Number(e.target.value) })}
-              />
-              {errors.weight && <p className="text-rose-500 text-sm">{errors.weight}</p>}
             </div>
           )}
 
