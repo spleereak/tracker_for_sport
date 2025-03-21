@@ -119,22 +119,24 @@ export const ExerciseFullModal: React.FC<Props> = ({
                 <p className="text-gray-600 whitespace-pre-line">{exercise.instruction}</p>
               </div>
 
-              <div>
-                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 flex items-center gap-2">
-                  <Dumbbell className="w-4 h-4 sm:w-5 sm:h-5" />
-                  Необходимое оборудование
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {exercise.equipment.map((item) => (
+              {exercise.equipment.length > 0 && (
+                <div>
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                    <Dumbbell className="w-4 h-4 sm:w-5 sm:h-5" />
+                    Необходимое оборудование
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {exercise.equipment.map((item) => (
                       <span
-                          key={item}
-                          className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs sm:text-sm"
+                        key={item}
+                        className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs sm:text-sm"
                       >
                     {item}
                   </span>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div>
                 <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 flex items-center gap-2">
