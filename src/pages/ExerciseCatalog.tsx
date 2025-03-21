@@ -209,8 +209,7 @@ function ExerciseCatalog() {
           {filteredExercises.map((exercise, i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl shadow-xl overflow-hidden transition-all hover:scale-105 
-                         cursor-pointer group"
+              className="bg-white rounded-2xl shadow-xl overflow-hidden transition-all hover:scale-105 cursor-pointer group"
               onClick={() => handleClickExerciseCard(exercise)}
             >
               <div className="aspect-video relative overflow-hidden">
@@ -243,28 +242,29 @@ function ExerciseCatalog() {
               
               <div className="p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">{exercise.name}</h3>
-                <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                <p className="text-sm text-gray-600 mb-4 truncate">
                   {exercise.description}
                 </p>
-                
+
+
                 <div className="flex flex-wrap gap-2 mb-4">
                   {exercise.tags.map((tag, i) => (
-                    <span 
-                      key={i} 
+                    <span
+                      key={i}
                       className="px-3 py-1 rounded-xl bg-blue-50 text-blue-600 text-xs font-medium"
                     >
-                      {tag}
-                    </span>
+                    {tag}
+                  </span>
                   ))}
                 </div>
-                
+
                 <div className="flex justify-between items-center">
                   <span className={`px-3 py-1 rounded-xl text-xs font-medium ${
                     exercise.difficulty === 'Средний' ?
                       'bg-yellow-50 text-yellow-600'
-                    : exercise.difficulty === 'Начинающий' ?
-                      'bg-green-50 text-green-600'
-                    : 'bg-red-50 text-red-600'
+                      : exercise.difficulty === 'Начинающий' ?
+                        'bg-green-50 text-green-600'
+                        : 'bg-red-50 text-red-600'
                   }`}>
                     {exercise.difficulty}
                   </span>
