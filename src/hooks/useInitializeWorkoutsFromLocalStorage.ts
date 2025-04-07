@@ -17,7 +17,6 @@ export const useInitializeWorkoutsFromLocalStorage = () => {
         const currentWorkout = JSON.parse(
           JSON.stringify(store.getState().workouts.workouts)
         );
-        console.log(currentWorkout);
 
         const exists = currentWorkout.some((w: Workout) => w.id === workout.id);
         if (!exists) {

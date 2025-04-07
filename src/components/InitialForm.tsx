@@ -18,8 +18,6 @@ export const InitialForm: React.FC<{ onSubmit: (data: UserData) => void }> = ({ 
     if (formData.height === 0) newErrors.height = 'Введите рост';
     if (formData.weight === 0) newErrors.weight = 'Введите вес';
     setErrors(newErrors);
-    console.log(newErrors);
-    console.log(Object.keys(newErrors).length === 0);
     return Object.keys(newErrors).length === 0;
   }
 

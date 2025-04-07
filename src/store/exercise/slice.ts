@@ -152,7 +152,7 @@ const initialExercises: Exercise[] = [
     description: "Одно из самых эффективных упражнений на всё тело",
     instruction: "1. Сделай присед, затем упор лёжа. \n2. Выполни отжимание. \n3. Вернись в присед и выпрыгни вверх.",
     image: "./images/burpee.jpg",
-    difficulty: "Средний",
+    difficulty: "Сложный",
     tags: ["Ноги", "Руки", "Грудь", "Корпус", "Кардио"],
     countType: "Повторения",
     reps: 12,
