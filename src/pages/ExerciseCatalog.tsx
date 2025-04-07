@@ -11,11 +11,10 @@ import { ExerciseFormModal } from '../components/ExerciseFormModal';
 import { useDeleteExercise } from '@/hooks/useDeleteExercise';
 import { ExerciseFullModal } from '@/components/ExerciseFullModal';
 import { useUpdateExercise } from '@/hooks/useUpdateExercise';
-import { EquipmentType, ExerciseTag } from '@/constants/exerciseItems';
+import { ExerciseTag } from '@/constants/exerciseItems';
 
 const initialFilters: IFilters = {
   difficulty: [],
-  equipment: [],
   tags: []
 }
 
@@ -34,10 +33,9 @@ function ExerciseCatalog() {
     instruction: '',
     image: '',
     difficulty: 'Начинающий',
-    equipment: [],
     tags: [],
-    hasWeight: false,
-    countType: 'Время'
+    countType: 'Время',
+    fromUser: true
   });
   const [errors, setErrors] = React.useState<{ [key: string]: string }>({});
 
@@ -47,15 +45,9 @@ function ExerciseCatalog() {
     return false;
   }
   
-  if (filters.equipment.length > 0 && !exercise.equipment.some(eq => filters.equipment.includes(eq as EquipmentType))) {
-    return false;
-  }
+  return !(filters.tags.length > 0 && !exercise.tags.some(tag => filters.tags.includes(tag as ExerciseTag)));
   
-  if (filters.tags.length > 0 && !exercise.tags.some(tag => filters.tags.includes(tag as ExerciseTag))) {
-    return false;
-  }
-  
-  return true;
+
 });
 
   React.useEffect(() => {
@@ -75,7 +67,6 @@ function ExerciseCatalog() {
     if (!newExercise.image.trim()) newErrors.image = 'Введите URL изображения/видео';
     if (newExercise.countType === 'Время' && !newExercise.duration) newErrors.duration = 'Введите кол-во минут на выполнение';
     if ( newExercise.countType === 'Повторения' && !newExercise.reps) newErrors.reps = 'Введите кол-во повторений на выполнение';
-    if (newExercise.hasWeight && !newExercise.weight) newErrors.weight = 'Введите вес оборудования';
     if (newExercise.tags.length === 0) newErrors.tags = 'Необходимо выбрать хотя бы один тег';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -95,9 +86,6 @@ function ExerciseCatalog() {
     if (selectedExercise?.countType === 'Повторения' && !selectedExercise?.reps) {
       newErrors.reps = 'Введите кол-во повторений на выполнение';
     }
-    if (selectedExercise?.hasWeight && !selectedExercise.weight) {
-      newErrors.weight = 'Введите вес оборудования';
-    }
     if (selectedExercise?.tags.length === 0) {
       newErrors.tags = 'Необходимо выбрать хотя бы один тег';
     }
@@ -112,10 +100,7 @@ function ExerciseCatalog() {
 
   const handleAddExercise = () => {
     if (!validateAddForm()) return;
-    const exerciseToAdd = {
-      ...newExercise,
-      equipment: newExercise.equipment.length > 0 ? newExercise.equipment : ['Ничего']
-    };
+    const exerciseToAdd = newExercise;
 
 
     const exists = exercises.some(ex => ex.id === exerciseToAdd.id);
@@ -123,7 +108,7 @@ function ExerciseCatalog() {
 
     dispatch(addExercise(exerciseToAdd));
     saveExercise(exerciseToAdd);
-    setNewExercise({ id: Date.now(), name: '', description: '', instruction: '', image: '', difficulty: 'Начинающий', equipment: [], tags: [], hasWeight: false, countType: 'Время' });
+    setNewExercise({ id: Date.now(), name: '', description: '', instruction: '', image: '', difficulty: 'Начинающий', tags: [], countType: 'Время', fromUser: true });
     setIsModalOpen(false);
   }
 
@@ -267,9 +252,6 @@ function ExerciseCatalog() {
                         : 'bg-red-50 text-red-600'
                   }`}>
                     {exercise.difficulty}
-                  </span>
-                  <span className="text-sm text-gray-500">
-                    {exercise.equipment.join(", ")}
                   </span>
                 </div>
               </div>

@@ -6,7 +6,6 @@ export interface Workout {
   description: string;
   exercises: Exercise[];
   difficulty: "Начинающий" | "Средний" | "Сложный";
-  equipmentRequired: string[];
   tags: string[];
   fromUser: boolean;
 }

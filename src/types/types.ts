@@ -5,10 +5,3 @@ export type UserData = {
   achievements: number[];
   workoutsCompleted: number;
 };
-
-export type Achievement = {
-  id: number;
-  name: string;
-  description: string;
-  completed: boolean;
-};

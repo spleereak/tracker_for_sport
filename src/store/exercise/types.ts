@@ -5,7 +5,6 @@ export interface Exercise {
   instruction: string;
   image: string;
   difficulty: "Начинающий" | "Средний" | "Сложный";
-  equipment: string[];
   tags: string[];
   countType: 'Время' | 'Повторения';
   reps?: number;

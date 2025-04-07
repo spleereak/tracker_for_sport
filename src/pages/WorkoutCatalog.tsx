@@ -7,7 +7,7 @@ import WorkoutFullModal from '@/components/WorkoutFullModal';
 import { useDeleteWorkout } from '@/hooks/useDeleteWorkout';
 import { ChevronDown, Filter, Trash2 } from 'lucide-react';
 import Filters, { IFilters } from '@/components/Filters';
-import { DifficultyLevel, EquipmentType, ExerciseTag } from '@/constants/exerciseItems';
+import { DifficultyLevel, ExerciseTag } from '@/constants/exerciseItems';
 
 const initialFilters: IFilters = {
   difficulty: [],
@@ -30,15 +30,9 @@ function WorkoutCatalog() {
       return false;
     }
     
-    if (filters.equipment.length > 0 && !workout.equipmentRequired.some(eq => filters.equipment.includes(eq as EquipmentType))) {
-      return false;
-    }
+    return !(filters.tags.length > 0 && !workout.tags.some(tag => filters.tags.includes(tag as ExerciseTag)));
     
-    if (filters.tags.length > 0 && !workout.tags.some(tag => filters.tags.includes(tag as ExerciseTag))) {
-      return false;
-    }
-    
-    return true;
+
   });
 
   const deleteWorkout = useDeleteWorkout();
@@ -142,7 +136,6 @@ function WorkoutCatalog() {
                     }`}>
                       {workout.difficulty}
                     </span>
-                    <span className="text-sm text-gray-500">{workout.equipmentRequired.join(", ")}</span>
                   </div>
                 </div>
               </div>
