@@ -157,7 +157,6 @@ export const ExerciseFullModal: React.FC<Props> = ({
             </div>
           </div>
 
-          {/* Нижняя кнопка - фиксированная */}
           <div className="p-4 sm:p-6 border-t border-gray-200 flex-shrink-0">
             <button
                 onClick={onClose}
