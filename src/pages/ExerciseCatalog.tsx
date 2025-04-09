@@ -134,7 +134,6 @@ function ExerciseCatalog() {
 
   const handleClickExerciseCard = (exercise: Exercise) => {
     setExerciseModalOpen(true);
-    setSelectedExercise(exercise);
   }
 
   const handleOnClose = () => {
