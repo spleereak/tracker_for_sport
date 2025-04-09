@@ -132,7 +132,7 @@ function ExerciseCatalog() {
     setIsModalOpen(true);
   }
 
-  const handleClickExerciseCard = (exercise: Exercise) => {
+  const handleClickExerciseCard = () => {
     setExerciseModalOpen(true);
   }
 
