@@ -194,7 +194,7 @@ function ExerciseCatalog() {
             <div
               key={i}
               className="bg-white rounded-2xl shadow-xl overflow-hidden transition-all hover:scale-105 cursor-pointer group"
-              onClick={() => handleClickExerciseCard(exercise)}
+              onClick={() => handleClickExerciseCard()}
             >
               <div className="aspect-video relative overflow-hidden">
                 <img

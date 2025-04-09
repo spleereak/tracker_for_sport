@@ -1,5 +1,5 @@
 import { Exercise } from '@/store/exercise/types';
-import { Clock, Dumbbell, Edit2, Hash, Tag, Trash2, X } from 'lucide-react';
+import { Clock, Edit2, Hash, Tag, Trash2, X } from 'lucide-react';
 import React from 'react';
 
 interface Props {
