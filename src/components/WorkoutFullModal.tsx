@@ -29,7 +29,14 @@ export const WorkoutFullModal: React.FC<Props> = ({
   };
 
   const getTotalDuration = (exercises: Exercise[]) => {
-    return exercises.reduce((total, exercise) => total + (exercise.duration || 0), 0);
+    let totalTime = 0;
+    for (let i = 0; i < exercises.length; i += 1) {
+      exercises[i].duration ? totalTime += exercises[i].duration
+        : totalTime += Math.round(exercises[i].reps / 10);
+      totalTime += 1;
+    }
+
+    return totalTime;
   };
 
   const navigate = useNavigate()
@@ -89,7 +96,7 @@ export const WorkoutFullModal: React.FC<Props> = ({
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Упражнения</h3>
               <div className="space-y-4">
-                {workout.exercises.map((exercise, i) => (
+                {workout.exercises.map((exercise: Exercise, i: number) => (
                   <div key={i} className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
                     <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-gray-900 text-white rounded-full">
                       {i + 1}
@@ -108,31 +115,9 @@ export const WorkoutFullModal: React.FC<Props> = ({
                             {exercise.reps} повторений
                           </span>
                         )}
-                        {exercise.weight && (
-                          <span className="inline-flex items-center gap-1 text-sm text-gray-600">
-                            {exercise.weight} кг
-                          </span>
-                        )}
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                <Dumbbell className="w-5 h-5" />
-                Необходимое оборудование
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {workout.equipmentRequired.map((item) => (
-                  <span 
-                    key={item}
-                    className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
-                  >
-                    {item}
-                  </span>
                 ))}
               </div>
             </div>
@@ -143,7 +128,7 @@ export const WorkoutFullModal: React.FC<Props> = ({
                 Теги
               </h3>
               <div className="flex flex-wrap gap-2">
-                {workout.tags.map((tag) => (
+                {workout.tags.map((tag: string) => (
                   <span 
                     key={tag}
                     className="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm"

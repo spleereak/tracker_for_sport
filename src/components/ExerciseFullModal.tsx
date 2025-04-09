@@ -1,5 +1,5 @@
 import { Exercise } from '@/store/exercise/types';
-import { Clock, Dumbbell, Edit2, Hash, Tag, Trash2, Weight, X } from 'lucide-react';
+import { Clock, Dumbbell, Edit2, Hash, Tag, Trash2, X } from 'lucide-react';
 import React from 'react';
 
 interface Props {
@@ -118,25 +118,6 @@ export const ExerciseFullModal: React.FC<Props> = ({
                 <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">Как выполнять</h3>
                 <p className="text-gray-600 whitespace-pre-line">{exercise.instruction}</p>
               </div>
-
-              {exercise.equipment.length > 0 && (
-                <div>
-                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 flex items-center gap-2">
-                    <Dumbbell className="w-4 h-4 sm:w-5 sm:h-5" />
-                    Необходимое оборудование
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {exercise.equipment.map((item) => (
-                      <span
-                        key={item}
-                        className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs sm:text-sm"
-                      >
-                    {item}
-                  </span>
-                    ))}
-                  </div>
-                </div>
-              )}
 
               <div>
                 <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 flex items-center gap-2">
