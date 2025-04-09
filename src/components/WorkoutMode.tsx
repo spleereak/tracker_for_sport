@@ -157,17 +157,6 @@ export const WorkoutMode = () => {
               </div>
             </div>
 
-            <div className="mb-8">
-              <h3 className="text-lg font-semibold mb-3">Необходимое оборудование</h3>
-              <div className="flex flex-wrap gap-2">
-                {workout?.equipmentRequired.map((item, index) => (
-                  <span key={index} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-
             <button
               onClick={startWorkout}
               className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-4 rounded-xl font-semibold 
@@ -339,20 +328,6 @@ export const WorkoutMode = () => {
                 </button>
               </div>
             )}
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl shadow-xl p-6">
-          <h3 className="font-semibold mb-4">Необходимое оборудование:</h3>
-          <div className="flex flex-wrap gap-2">
-            {currentExercise?.equipment.map((item, index) => (
-              <span
-                key={index}
-                className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium"
-              >
-                {item}
-              </span>
-            ))}
           </div>
         </div>
       </div>
