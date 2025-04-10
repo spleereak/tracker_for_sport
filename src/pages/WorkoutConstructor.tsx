@@ -35,7 +35,8 @@ const WorkoutConstructor = () => {
       exercises: [],
       difficulty: 'Простая',
       equipmentRequired: [],
-      tags: []
+      tags: [],
+      fromUser: true
     };
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -108,10 +109,8 @@ const WorkoutConstructor = () => {
 
   const handleAddWorkout = () => {
     if (!validateForm()) return;
-    const uniqueEquipment = Array.from(new Set(newWorkout.exercises.flatMap(ex => ex.equipment)));
     const workoutToAdd = {
       ...newWorkout,
-      equipmentRequired: uniqueEquipment,
       tags: Array.from(new Set([...newWorkout.tags, ...selectedTags]))
     };
 
@@ -126,8 +125,8 @@ const WorkoutConstructor = () => {
       description: '',
       exercises: [],
       difficulty: 'Начинающий',
-      equipmentRequired: [],
-      tags: []
+      tags: [],
+      fromUser: true
     });
     setSelectedTags([]);
     setExerciseSettings({});
