@@ -8,6 +8,7 @@ import { useSaveWorkout } from '../hooks/useSaveWorkout';
 import { Clock, Repeat, Tag, ChevronRight, Dumbbell, Wand2, AlertTriangle } from 'lucide-react';
 import { Exercise } from '@/store/exercise/types';
 import { DIFFICULTY_COLORS, MAX_DURATION, MAX_REPS, TAGS_LIST } from '@/constants/workoutConstructorConstants';
+import {useNavigate} from "react-router-dom";
 
 interface ExerciseSettings {
   type: string;
@@ -17,6 +18,7 @@ interface ExerciseSettings {
 }
 
 const WorkoutConstructor = () => {
+  const navigate = useNavigate();
   const workouts = useSelector((state: RootState) => state.workouts.workouts);
   const exercisesList = useSelector((state: RootState) => state.exercises.exercises);
   const dispatch = useDispatch();
@@ -131,6 +133,7 @@ const WorkoutConstructor = () => {
     setSelectedTags([]);
     setExerciseSettings({});
     setWarnings({});
+    navigate('/workouts');
   };
 
   return (
